@@ -1,0 +1,108 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                               Euraura EA         |
+//|                                        https://forexroboteasy.com|
+//|                                            Forex Robot Easy Team |
+//+------------------------------------------------------------------+
+#property strict
+
+// Input parameters
+input double LotSize = 0.01;             // Lot size for trading
+input int StopLoss = 50;                 // Stop loss in pips
+input int TakeProfit = 100;              // Take profit in pips
+input int MaxOrders = 5;                 // Maximum number of open orders
+input int Slippage = 3;                  // Maximum allowed slippage
+input int MagicNumber = 12345;           // Unique identifier for the EA
+
+// Global variables
+int totalOrders;                         // Total number of open orders
+double accountBalance;                   // Account balance
+bool tradeAllowed;                       // Flag to allow trading
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Initialize variables
+    totalOrders = 0;
+    accountBalance = AccountBalance();
+    tradeAllowed = true;
+    
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Perform any necessary clean-up tasks
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Check if trading is allowed
+    if (!tradeAllowed)
+        return;
+    
+    // Check if total orders have reached the maximum limit
+    if (totalOrders >= MaxOrders)
+        return;
+    
+    // Check if there is enough account balance for opening new orders
+    if (AccountBalance() < LotSize)
+        return;
+    
+    // Check trading conditions and open new orders
+    if (ShouldOpenBuyOrder())
+    {
+        OpenBuyOrder();
+        totalOrders++;
+    }
+    
+    if (ShouldOpenSellOrder())
+    {
+        OpenSellOrder();
+        totalOrders++;
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Function to check if buy order should be opened                   |
+//+------------------------------------------------------------------+
+bool ShouldOpenBuyOrder()
+{
+    // Add your logic here to determine if a buy order should be opened
+    
+    return false;
+}
+
+//+------------------------------------------------------------------+
+//| Function to check if sell order should be opened                  |
+//+------------------------------------------------------------------+
+bool ShouldOpenSellOrder()
+{
+    // Add your logic here to determine if a sell order should be opened
+    
+    return false;
+}
+
+//+------------------------------------------------------------------+
+//| Function to open a buy order                                      |
+//+------------------------------------------------------------------+
+void OpenBuyOrder()
+{
+    // Add your code here to open a buy order
+}
+
+//+------------------------------------------------------------------+
+//| Function to open a sell order                                     |
+//+------------------------------------------------------------------+
+void OpenSellOrder()
+{
+    // Add your code here to open a sell order
+}
